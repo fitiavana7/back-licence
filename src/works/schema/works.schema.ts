@@ -14,8 +14,8 @@ export class Works {
   @Prop({ required: true, type: mongoose.Schema.Types.String })
   description : string;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.Number })
-  salary : number;
+  @Prop({ required: true, type: mongoose.Schema.Types.String })
+  isInDirection : string;
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })
   companyId;

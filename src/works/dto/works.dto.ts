@@ -7,11 +7,12 @@ export class WorksDto {
     title : string
 
     @IsNotEmpty()
+    @IsString()
+    isInDirection : string
+
+    @IsNotEmpty()
     @Length(2,100)
     @IsString()
     description : string
 
-    @IsNotEmpty()
-    @Length(2,100)
-    salary : number
 }

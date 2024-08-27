@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import HistoricSalaryItemSchema from 'src/employee/schema/historic-salary-item.schema';
 
 export type EmployeeDocument = Employee & Document;
 
@@ -33,8 +32,14 @@ export class Employee {
   @Prop({ required: true, type: mongoose.Schema.Types.String })
   mail : string;
 
-  @Prop({ required: false, type: [HistoricSalaryItemSchema] , default : [] })
-  historicSalary ;
+  @Prop({ required: true, type: mongoose.Schema.Types.Date })
+  hiringDate : Date;
+
+  @Prop({ required: false, type: mongoose.Schema.Types.Date })
+  leavingDate : Date;
+
+  @Prop({ required: true, type: mongoose.Schema.Types.Boolean })
+  isCurrentEmployee : boolean;
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })
   companyId;

@@ -17,25 +17,23 @@ export class SalairesService {
         return await this.salairesModel.find({});
     }
 
-    async getByCompany(id : string){
+    async getByCompany(id : ObjectId){
         return await this.salairesModel.find({userId : id});
     }
 
-    async getByWork(id : string){
+    async getByWork(id : ObjectId){
         return await this.salairesModel.find({workId : id});
     }
     
-    async getByEmployee(id : string){
-        return await this.salairesModel.find({employeeId : id}).sort({ createdAt: -1 });
-    }
-
-    async getCurrentByEmployee(id : string){
+    async getByEmployee(id : ObjectId){
         const data = await this.salairesModel.find({employeeId : id});
-        return data[data.length-1]
+        data.map(async(el)=>{
+            el.workId = await this.workService.getTitleById(String(id))
+        })
+        return data
     }
     
-    
-    async getById(id : string){
+    async getById(id : ObjectId){
         return await this.salairesModel.findOne({_id : id});
     }
 
@@ -43,7 +41,7 @@ export class SalairesService {
         return this.salairesModel.create(data)
     }
     
-    async delete(id : string){
+    async delete(id : ObjectId){
         return this.salairesModel.deleteOne({_id : id})
     }
 

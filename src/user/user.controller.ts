@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { StatService } from 'src/user/stat.service';
 import { GetUserByIdDto } from './dto/get-by-id.dto';
 import { GetByMailDto } from './dto/get-mail.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -10,7 +11,8 @@ import { UserService } from './user.service';
 export class UserController {
 
     constructor(
-        private userService : UserService
+        private userService : UserService,
+        private statService : StatService
     ){}
 
     @UseGuards()
@@ -45,5 +47,11 @@ export class UserController {
     @Get("/verify/:token")
     async verify(@Param() data  : VerifyTokenDto ){                
         return await this.userService.verifyToken(data)
+    }
+
+    @UseGuards()
+    @Get("/stat/:id")
+    async getStat(@Param() data  : {id : string} ){                
+        return await this.statService.getCompanyStat(data.id)
     }
 }

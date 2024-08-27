@@ -12,32 +12,26 @@ export class SalairesController {
 
     @UseGuards()
     @Get('company/:id')
-    getByCompany(@Param() data : {id : string}){
+    getByCompany(@Param() data : GetByIdDto){
         return this.salairesService.getByCompany(data.id)
     }
 
     @UseGuards()
     @Get('employee/:id')
-    getByEmployee(@Param() data : {id : string}){
+    getByEmployee(@Param() data : GetByIdDto){
         return this.salairesService.getByEmployee(data.id)
-    }
-
-    @UseGuards()
-    @Get('employee/get-current/:id')
-    getCurrentByEmployee(@Param() data : {id : string}){
-        return this.salairesService.getCurrentByEmployee(data.id)
     }
     
     @UseGuards()
     @Get('work/:id')
-    getByWork(@Param() data : {id : string}){
+    getByWork(@Param() data : GetByIdDto){
         return this.salairesService.getByWork(data.id)
     }
     
     @UseGuards()
     @Get(':id')
-    async getByUser(@Param() data : {id : string}){
-        return await this.salairesService.getById(data.id)
+    getByUser(@Param() data : GetByIdDto){
+        return this.salairesService.getById(data.id)
     }
 
     @UseGuards()
@@ -45,4 +39,6 @@ export class SalairesController {
     create(@Body() data : SalairesDto){
         return this.salairesService.create(data)
     }
+
+
 }

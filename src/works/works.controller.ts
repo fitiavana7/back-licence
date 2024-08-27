@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post , Delete, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post , Delete, UseGuards, Put } from '@nestjs/common';
 import { WorksDto } from 'src/works/dto/works.dto';
 import { WorksService } from 'src/works/works.service';
 
@@ -16,6 +16,12 @@ export class WorksController {
     }
 
     @UseGuards()
+    @Get('/:id')
+    getById(@Param() req : {id : string}){
+        return this.worksService.getById(req.id)
+    }
+
+    @UseGuards()
     @Get('company/:id')
     getMetiers(@Param() req : {id : string}){
         return this.worksService.getByCompany(req.id)
@@ -25,6 +31,12 @@ export class WorksController {
     @Post('create/:id')
     create(@Body() data : WorksDto , @Param() req : {id : string}){
         return this.worksService.create(data , req.id )
+    }
+
+    @UseGuards()
+    @Put('update/:id')
+    update(@Body() data : WorksDto , @Param() req : {id : string}){
+        return this.worksService.update(req.id , data)
     }
 
     @UseGuards()

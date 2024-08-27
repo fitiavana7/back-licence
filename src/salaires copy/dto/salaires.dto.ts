@@ -13,13 +13,11 @@ export class SalairesDto {
     @IsNotEmpty()
     workId : string
 
+    @IsString()
     @IsNotEmpty()
-    applicationDate : Date
+    applicationDate : string
 
     @IsString()
     @IsOptional()
     description : string
-
-    @IsNumber()
-    amount : number
 }

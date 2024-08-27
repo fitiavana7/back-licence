@@ -16,8 +16,8 @@ export class WorksService {
         return await this.worksModel.find({});
     }
 
-    async getById(data : { userId : string}){
-        return await this.worksModel.findOne({_id : data.userId});
+    async getById(id : string){
+        return await this.worksModel.findOne({_id : id});
     }
 
     async getByCompany(id : string){
@@ -30,6 +30,19 @@ export class WorksService {
 
     async delete(id : string){
         return this.worksModel.deleteOne({_id  :id})
+    }
+
+    async getTotalWork(id : string){
+        return await this.worksModel.count({companyId  :id})
+    }
+
+    async update(id : string , data){
+        return await this.worksModel.updateOne({_id  :id} , {$set : data})
+    }
+
+    async getTitleById(id : string){
+        const work = await this.worksModel.findOne({_id  :id})
+        return work?.title || ''
     }
 
 }

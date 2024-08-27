@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, Length } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsString, Length } from "class-validator";
 
 export class EmployeeDto {
     @IsNotEmpty()
@@ -30,6 +30,14 @@ export class EmployeeDto {
     @Length(3,100)
     @IsString()
     mail : string
+
+    @IsNotEmpty()
+    hiringDate : Date
+
+    leavingDate : Date
+
+    @IsBoolean()
+    isCurrentEmployee : boolean
 
     @IsNotEmpty()
     @Length(3,100)

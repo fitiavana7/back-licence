@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Delete, Post, UseGuards } from '@nestjs/common';
 import { EmployeeDto } from 'src/employee/dto/employee.dto';
 import { EmployeeService} from './employee.service';
 
@@ -22,6 +22,18 @@ export class EmployeeController {
     }
 
     @UseGuards()
+    @Get('/company/leaved/:id')
+    getEmployeeLeavedByCompany(@Param() data :{id : string}){
+        return this.employeeService.getEmployeeLeavedByCompany(data.id)
+    }
+
+    @UseGuards()
+    @Post('/move')
+    MoveEmployee(@Body() data :{id : string , leavingDate : Date}){
+        return this.employeeService.moveEmployee(data.id , data.leavingDate)
+    }
+
+    @UseGuards()
     @Get('/:id')
     getEmployeeDetail(@Param() data :{id : string}){
         return this.employeeService.getEmployeeDetail(data.id)
@@ -30,6 +42,13 @@ export class EmployeeController {
     @UseGuards()
     @Post('/:id')
     create(@Body() data : EmployeeDto , @Param() param :{id : string}){
-        return this.employeeService.create(data , param.id)
+        return this.employeeService.update(param.id, data)
     }
+    
+    @UseGuards()
+    @Delete('/:id')
+    delete(@Param() param :{id : string}){
+        return this.employeeService.delete(param.id)
+    }
+
 }

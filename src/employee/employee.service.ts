@@ -18,9 +18,22 @@ export class EmployeeService {
     async getById(id : string){
         return await this.employeeModel.findOne({_id : id});
     }
+    
+    async moveEmployee(id : string , leavingDate : Date){
+        return await this.employeeModel.updateOne({_id : id} ,{$set : {
+            leavingDate
+        }});
+    }
 
+    async update(id : string , data){
+        return await this.employeeModel.updateOne({_id : id} ,{$set : data});
+    }
     async getEmployeeByCompany(id : string){
-        return await this.employeeModel.find({companyId : id});
+        return await this.employeeModel.find({companyId : id , isCurrentEmployee : true});
+    }
+
+    async getEmployeeLeavedByCompany(id : string){
+        return await this.employeeModel.find({companyId : id , isCurrentEmployee : false});
     }
 
     async getEmployeeDetail(id : string){
@@ -29,6 +42,14 @@ export class EmployeeService {
 
     async create(data : EmployeeDto , id : string){
         return this.employeeModel.create({...data , companyId : id})
+    }
+
+    async delete(id : string){
+        return this.employeeModel.deleteOne({_id : id})
+    }
+    
+    async getTotalSalaries(id : string){
+        return await this.employeeModel.count({companyId : id})
     }
 
 }

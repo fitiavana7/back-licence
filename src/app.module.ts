@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import { WorksModule } from 'src/works/works.module';
 import { SalairesModule } from 'src/salaires/salaires.module';
 import { EmployeeModule } from 'src/employee/employee.module';
+import { PaymentModule } from 'src/payment/payment.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { EmployeeModule } from 'src/employee/employee.module';
     UserModule,
     WorksModule,
     SalairesModule,
-    EmployeeModule
+    EmployeeModule,
+    PaymentModule
   ],
   controllers: [AppController],
   providers: [AppService],
