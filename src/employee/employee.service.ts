@@ -3,12 +3,16 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { EmployeeDto } from 'src/employee/dto/employee.dto';
 import { Employee, EmployeeDocument } from 'src/employee/schema/employee.schema';
+import { PaymentService } from 'src/payment/payment.service';
+import { SalairesService } from 'src/salaires/salaires.service';
 
 @Injectable()
 export class EmployeeService {
     constructor(
         @InjectModel(Employee.name) 
         private readonly employeeModel: Model<EmployeeDocument>,
+        private paymentService : PaymentService,
+        private salairesService : SalairesService
       ) {}
 
     async getAll(){
@@ -45,7 +49,9 @@ export class EmployeeService {
     }
 
     async delete(id : string){
-        return this.employeeModel.deleteOne({_id : id})
+        this.employeeModel.deleteOne({_id : id})
+        this.salairesService.deleteByEmployee(id)
+        this.paymentService.deleteByEmployee(id)
     }
     
     async getTotalSalaries(id : string){

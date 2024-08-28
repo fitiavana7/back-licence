@@ -33,7 +33,10 @@ export class SalairesService {
         const data = await this.salairesModel.find({employeeId : id});
         return data[data.length-1]
     }
-    
+
+    async deleteByEmployee(id : string){
+        return this.salairesModel.deleteMany({_id : id})
+    }    
     
     async getById(id : string){
         return await this.salairesModel.findOne({_id : id});

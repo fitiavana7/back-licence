@@ -23,8 +23,8 @@ export class PaymentService {
         return await this.paymentModel.find({workId : id});
     }
 
-    async checkIfPaid(id : string){
-        
+    async deleteByEmployee(id : string){
+        return await this.paymentModel.deleteMany({_id : id})
     }
     
     async getByEmployee(id : string){
