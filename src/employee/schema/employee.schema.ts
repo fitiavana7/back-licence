@@ -11,7 +11,7 @@ export class Employee {
   @Prop({ required: true, type: mongoose.Schema.Types.String })
   firstName : string;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.String })
+  @Prop({ required: false, type: mongoose.Schema.Types.String , default : ''})
   lastName : string;
 
   @Prop({ required: true, type: mongoose.Schema.Types.Number })
@@ -32,13 +32,13 @@ export class Employee {
   @Prop({ required: true, type: mongoose.Schema.Types.String })
   mail : string;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.Date })
+  @Prop({ required: true, type: mongoose.Schema.Types.Date , default : new Date() })
   hiringDate : Date;
 
   @Prop({ required: false, type: mongoose.Schema.Types.Date })
   leavingDate : Date;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.Boolean })
+  @Prop({ required: true, type: mongoose.Schema.Types.Boolean , default : true })
   isCurrentEmployee : boolean;
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })

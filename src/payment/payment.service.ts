@@ -23,6 +23,23 @@ export class PaymentService {
         return await this.paymentModel.find({workId : id});
     }
 
+    // async getTotalAmountByCompany(companyID: string): Promise<number> {
+    //     const result = await this.paiementModel.aggregate([
+    //       { $match: { companyID: companyID } }, // Filtre par companyID
+    //       { $group: { _id: null, totalAmount: { $sum: '$amount' } } }, // Calcule la somme des montants
+    //     ]);
+    
+    //     // Retourne la somme ou 0 si aucun résultat
+    //     return result.length > 0 ? result[0].totalAmount : 0;
+    // }
+
+    // async getHighestAmountPayment(companyID: string): Promise<Paiement | null> {
+    //     return await this.paiementModel
+    //       .findOne({ companyID: companyID }) // Filtre par companyID
+    //       .sort({ amount: -1 }) // Trie par montant décroissant
+    //       .exec(); // Exécute la requête et retourne le premier document
+    // }
+
     async deleteByEmployee(id : string){
         return await this.paymentModel.deleteMany({_id : id})
     }

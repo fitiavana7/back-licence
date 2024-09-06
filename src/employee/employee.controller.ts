@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Delete, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Delete, Post, UseGuards, Put } from '@nestjs/common';
 import { EmployeeDto } from 'src/employee/dto/employee.dto';
 import { EmployeeService} from './employee.service';
 
@@ -42,6 +42,12 @@ export class EmployeeController {
     @UseGuards()
     @Post('/:id')
     create(@Body() data : EmployeeDto , @Param() param :{id : string}){
+        return this.employeeService.create(data, param.id)
+    }
+
+    @UseGuards()
+    @Put('/update/:id')
+    update(@Body() data : EmployeeDto , @Param() param :{id : string}){
         return this.employeeService.update(param.id, data)
     }
     

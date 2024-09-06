@@ -30,4 +30,5 @@ export class UserDto {
     @Length(6,100)
     @IsString()
     password : string
+    
 }

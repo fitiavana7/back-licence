@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { ObjectId } from 'mongodb';
 import { Model } from 'mongoose';
 import { EmployeeDto } from 'src/employee/dto/employee.dto';
 import { Employee, EmployeeDocument } from 'src/employee/schema/employee.schema';
@@ -24,13 +25,23 @@ export class EmployeeService {
     }
     
     async moveEmployee(id : string , leavingDate : Date){
-        return await this.employeeModel.updateOne({_id : id} ,{$set : {
-            leavingDate
-        }});
+        let employee = await this.employeeModel.findById(id)
+        employee.leavingDate = leavingDate
+        employee.isCurrentEmployee = false
+        return employee.save()
     }
 
-    async update(id : string , data){
-        return await this.employeeModel.updateOne({_id : id} ,{$set : data});
+    async update(id : string , data : EmployeeDto){
+        let employee = await this.employeeModel.findById(id)
+        employee.hiringDate = data.hiringDate
+        employee.firstName = data.firstName
+        employee.lastName = data.lastName
+        employee.age = data.age
+        employee.adress = data.adress
+        employee.gender = data.gender
+        employee.matrimoniale = data.matrimoniale
+        employee.mail = data.mail
+        return employee.save()
     }
     async getEmployeeByCompany(id : string){
         return await this.employeeModel.find({companyId : id , isCurrentEmployee : true});

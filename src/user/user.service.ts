@@ -9,7 +9,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { GetByMailDto } from './dto/get-mail.dto';
 import { VerifyTokenDto } from './dto/verify-token.dto';
 import { GetUserByIdDto } from './dto/get-by-id.dto';
-
+import { ChangePasswordDto } from 'src/user/dto/change-password.dto';
 @Injectable()
 export class UserService {
     constructor(
@@ -54,6 +54,29 @@ export class UserService {
             )
 
         return { token }
+    }
+
+    async changePassword(id : string ,data  : ChangePasswordDto){
+        const user = await this.userModel.findOne({ _id : id });
+        const isPasswordMatched = await bcrypt.compare(data.password, user.password)
+        if (!isPasswordMatched) {
+            throw new UnauthorizedException("incorrect password");
+        }
+        user.password = await bcrypt.hash(data.newPassword, 10)
+        return user.save()
+    }
+
+    async update(id : string ,data  : UserDto){
+        const user = await this.userModel.findOne({ _id : id });
+        if (!user) {
+            throw new BadRequestException("User not found");
+        }
+        user.name = data.name
+        user.location = data.location
+        user.phone = data.phone
+        user.creationDate = data.creationDate
+        user.mail = data.mail
+        return user.save()
     }
 
     async create(data : UserDto){

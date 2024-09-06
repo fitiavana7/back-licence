@@ -37,7 +37,9 @@ export class WorksService {
     }
 
     async update(id : string , data){
-        return await this.worksModel.updateOne({_id  :id} , {$set : data})
+        return await this.worksModel.findOneAndUpdate({_id  :id} ,
+             {$set : data},
+             { new: true, runValidators: true })
     }
 
     async getTitleById(id : string){

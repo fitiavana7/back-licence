@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { ChangePasswordDto } from 'src/user/dto/change-password.dto';
 import { StatService } from 'src/user/stat.service';
 import { GetUserByIdDto } from './dto/get-by-id.dto';
 import { GetByMailDto } from './dto/get-mail.dto';
@@ -36,6 +37,16 @@ export class UserController {
     @Post('/register')
     create(@Body() data : UserDto){
         return this.userService.create(data)
+    }
+
+    @Post('/update/:id')
+    update( @Param() param : {id : string} , @Body() data : UserDto){
+        return this.userService.update(param.id ,data)
+    }
+
+    @Post('/change-password/:id')
+    changePassword( @Param() param : {id : string} , @Body() data : ChangePasswordDto){
+        return this.userService.changePassword(param.id , data)
     }
 
     @Post("/login")
