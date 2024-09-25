@@ -60,9 +60,9 @@ export class EmployeeService {
     }
 
     async delete(id : string){
-        this.employeeModel.deleteOne({_id : id})
         this.salairesService.deleteByEmployee(id)
         this.paymentService.deleteByEmployee(id)
+        return await this.employeeModel.findByIdAndDelete( id)
     }
     
     async getTotalSalaries(id : string){

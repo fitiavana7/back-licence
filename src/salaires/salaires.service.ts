@@ -47,7 +47,7 @@ export class SalairesService {
     }
     
     async delete(id : string){
-        return this.salairesModel.deleteOne({_id : id})
+        return this.salairesModel.findByIdAndDelete( id)
     }
 
 }

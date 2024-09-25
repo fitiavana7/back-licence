@@ -29,7 +29,7 @@ export class WorksService {
     }
 
     async delete(id : string){
-        return this.worksModel.deleteOne({_id  :id})
+        return this.worksModel.findByIdAndDelete(id)
     }
 
     async getTotalWork(id : string){

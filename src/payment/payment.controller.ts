@@ -29,6 +29,12 @@ export class PaymentController {
     }
     
     @UseGuards()
+    @Get('company-total/:id')
+    getTotalByCompany(@Param() data : {id : string}){
+        return this.paymentService.getTotalAmountByCompany(data.id)
+    }
+    
+    @UseGuards()
     @Get('work/:id')
     getByWork(@Param() data : {id : string}){
         return this.paymentService.getByWork(data.id)

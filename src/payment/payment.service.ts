@@ -23,11 +23,12 @@ export class PaymentService {
         return await this.paymentModel.find({workId : id});
     }
 
-    // async getTotalAmountByCompany(companyID: string): Promise<number> {
-    //     const result = await this.paiementModel.aggregate([
-    //       { $match: { companyID: companyID } }, // Filtre par companyID
-    //       { $group: { _id: null, totalAmount: { $sum: '$amount' } } }, // Calcule la somme des montants
-    //     ]);
+    async getTotalAmountByCompany(companyID: string){        
+        const data = await this.getByCompany(companyID)
+        let total = 0
+        data.map((e)=> total += e.amount)
+        return total
+    }
     
     //     // Retourne la somme ou 0 si aucun résultat
     //     return result.length > 0 ? result[0].totalAmount : 0;
