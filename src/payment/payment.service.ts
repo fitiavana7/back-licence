@@ -42,7 +42,7 @@ export class PaymentService {
     // }
 
     async deleteByEmployee(id : string){
-        return await this.paymentModel.deleteMany({_id : id})
+        return await this.paymentModel.deleteMany({employeeId : id})
     }
     
     async getByEmployee(id : string){

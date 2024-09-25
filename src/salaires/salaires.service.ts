@@ -35,7 +35,7 @@ export class SalairesService {
     }
 
     async deleteByEmployee(id : string){
-        return this.salairesModel.deleteMany({_id : id})
+        return this.salairesModel.deleteMany({employeeId : id})
     }    
     
     async getById(id : string){
